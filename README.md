@@ -2,7 +2,7 @@
 # 🏭 Industrial IoT Equipment Health Monitoring System
 
 ## 📘 Executive Summary
-This system provides real-time health monitoring for industrial equipment using IoT sensor ingestion, concurrent stream processing, anomaly detection, and alerting. Built with Java, Python, Kafka, PostgreSQL, and Docker, it is designed for scalability, fault tolerance, and observability. (Source: turn5search12, turn5search14)
+This system provides real-time health monitoring for industrial equipment using IoT sensor ingestion, concurrent stream processing, anomaly detection, and alerting. Built with Java, Python, Kafka, PostgreSQL, and Docker, it is designed for scalability, fault tolerance, and observability.
 
 ## 🎯 Goals
 - Real-time ingestion of telemetry (temperature, vibration, pressure).
@@ -10,27 +10,23 @@ This system provides real-time health monitoring for industrial equipment using 
 - Event-driven microservices using Kafka.
 - Durable metrics and audit storage in PostgreSQL.
 - Alert pipeline with retries.
-(Source: turn5search12, turn5search14)
 
 ## 🚫 Non-Goals (v1)
 - No frontend UI.
 - No complex ML models.
 - No device provisioning.
 - No advanced multi-tenant RBAC.
-(Source: turn5search12, turn5search14)
 
 ## 👥 Target Users
 - Operations Engineers
 - Reliability Engineers
 - SRE/DevOps
 - Developers
-(Source: turn5search12, turn5search14)
 
 ## 🔧 Key Use Cases
 - Ingest simulated IoT sensor readings via REST.
 - Process readings concurrently and compute rolling metrics.
 - Detect anomalies using rule thresholds and spike detection.
-(Source: turn5search12, turn5search14)
 
 ## 🧱 Architecture Overview
 Event-driven microservices architecture:
@@ -38,7 +34,6 @@ Event-driven microservices architecture:
 - **Stream Processor (Python)** → Consumes events, emits `processed-metrics` & `anomaly-detected`.
 - **Metrics Service (Java)** → Persists metrics to PostgreSQL.
 - **Alert Service (Python)** → Creates alerts, retries, audit logs.
-(Source: turn5search12, turn5search13)
 
 ## 🏁 Completed Work (v0.1 → v1 Progress)
 ### ✔ Infrastructure
@@ -47,7 +42,6 @@ Event-driven microservices architecture:
 
 - Kafka, Zookeeper, PostgreSQL running via Docker Compose.
 - Can create/list topics and connect to PostgreSQL.
-(Source: turn5search13)
 
 ### ✔ Sensor Ingestion Service
 
@@ -55,39 +49,32 @@ Event-driven microservices architecture:
 
 - Accepts REST input, validates, publishes to Kafka.
 - Returns 202 with eventId.
-(Source: turn5search13)
 
 ### ✔ Stream Processor
 - Concurrent processing with rules-based anomaly detection.
-(Source: turn5search12)
 
 ### ✔ Metrics Service
 - PostgreSQL schema implemented.
 - Query endpoints provided.
-(Source: turn5search12)
 
 ### ✔ Alert Service
 - Retry with backoff + audit logs.
-(Source: turn5search12)
 
 ## 🔄 Roadmap
 ### 📌 v1.1
 - Dead-letter queues
 - Retry topics
 - OpenTelemetry tracing
-(Source: turn5search12)
 
 ### 📌 v1.2
 - Redis cache
 - Windowed aggregations
 - RBAC improvements
-(Source: turn5search12)
 
 ### 📌 v2
 - ML anomaly detection
 - Multi-tenant ingestion
 - Grafana dashboards
-(Source: turn5search12)
 
 ## ▶ How to Run
 ```
@@ -97,7 +84,6 @@ docker compose up -d
 2. Send readings via REST
 3. Tail processor + alert logs
 4. Query metrics
-(Source: turn5search12)
 
 ## 🎉 Conclusion
 This project implements a production-inspired Industrial IoT pipeline capable of ingestion → Kafka streaming → anomaly detection → metrics persistence → alerting.
