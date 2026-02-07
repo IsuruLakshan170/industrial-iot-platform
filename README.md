@@ -42,11 +42,17 @@ Event-driven microservices architecture:
 
 ## 🏁 Completed Work (v0.1 → v1 Progress)
 ### ✔ Infrastructure
+
+<img width="1290" height="799" alt="Docker Compose Infrastructure" src="https://github.com/user-attachments/assets/41afb510-e264-483d-b957-20538a44a042" />
+
 - Kafka, Zookeeper, PostgreSQL running via Docker Compose.
 - Can create/list topics and connect to PostgreSQL.
 (Source: turn5search13)
 
 ### ✔ Sensor Ingestion Service
+
+<img width="1289" height="502" alt="Sensor Ingestion Service – Working Flow" src="https://github.com/user-attachments/assets/8eee21ab-cf21-40ca-a757-9aa47019012d" />
+
 - Accepts REST input, validates, publishes to Kafka.
 - Returns 202 with eventId.
 (Source: turn5search13)
