@@ -58,6 +58,30 @@ services:
     networks:
       - iot_net
 
+  # ────────────────────────────────────────────────────────────────
+  # Sensor Ingestion Service (Java 21, Spring Boot)
+  # REST → validates → publishes to Kafka topic 'sensor-readings'
+  # ────────────────────────────────────────────────────────────────
+  sensor-ingestion-service:
+    build:
+      context: ../services/sensor-ingestion-service
+      dockerfile: Dockerfile
+    container_name: ${COMPOSE_PROJECT_NAME}_sensor_ingestion
+    environment:
+      # Spring will read these via application.yml (spring.kafka.*, app.*)
+      KAFKA_BROKERS: kafka:9092                   # internal address on the docker network
+      TOPIC_SENSOR_READINGS: sensor-readings      # matches your data contract
+      INGEST_AUTH_TOKEN: ${INGEST_AUTH_TOKEN}     # optional dev-only token (already in your .env)
+      SERVER_PORT: 8080                           # expose this port to host
+    depends_on:
+      - kafka
+    ports:
+      - "8080:8080"                               # host → container (so you can hit the API from your browser/tools)
+    networks:
+      - iot_net
+
+  # ────────────────────────────────────────────────────────────────  
+
 # ──────────────────────────────────────────────────────────────────
 # Networks & Volumes
 # ──────────────────────────────────────────────────────────────────
@@ -67,3 +91,4 @@ networks:
 
 volumes:
   postgres_data:                             # Named volume to persist Postgres data.
+

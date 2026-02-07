@@ -1,0 +1,39 @@
+# -----------------------------------------------------------------------------
+# Project: Industrial IoT ? Sensor Ingestion Service
+# File: src/main/resources/application.yml
+# Purpose: Central app configuration. Reads ports and Kafka settings from
+#          environment variables so the service runs consistently in Docker
+#          and on local machine.
+# -----------------------------------------------------------------------------
+
+spring:
+  application:
+    name: sensor-ingestion-service  # Logical name used in logs/actuator.
+
+  # --- Kafka producer configuration (Spring for Apache Kafka) -------------
+  kafka:
+    bootstrap-servers: ${KAFKA_BROKERS:kafka:9092}
+    producer:
+      # Use String keys so we can partition by sensorId (key = sensorId).
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      # JSON for values; we'll plug in Jackson serializer later or send String JSON.
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      # Safe producer defaults for local dev.
+      acks: all
+      retries: 3
+      properties:
+        linger.ms: 5
+        batch.size: 16384
+
+# --- HTTP server settings --------------------------------------------------
+server:
+  port: ${SERVER_PORT:8080}  # Default 8080; can override with env var.
+
+# --- Custom application properties ----------------------------------------
+app:
+  # Topic names are defined in your data contracts; we read them from env with sensible defaults.
+  topics:
+    sensor-readings: ${TOPIC_SENSOR_READINGS:sensor-readings}
+
+  # Simple dev-only auth token (will be enforced by the controller/filter later).
+  ingest-auth-token: ${INGEST_AUTH_TOKEN:dev-token}

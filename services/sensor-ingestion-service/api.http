@@ -1,0 +1,83 @@
+
+
+
+POST http://localhost:8080/api/v1/sensors/S-1001/readings
+Content-Type: application/json
+
+{
+  "timestamp": "2026-02-05T16:07:00Z",
+  "temperature": 68.4,
+  "vibration": 3.1,
+  "pressure": 102.7,
+  "device_status": "OK"
+}
+
+
+
+
+### Health Check
+GET http://localhost:8080/api/v1/health
+
+
+### Ingest Sensor Reading (Sensor S-1001)
+POST http://localhost:8080/api/v1/sensors/S-1001/readings
+Content-Type: application/json
+
+{
+  "timestamp": "2026-02-05T16:07:00Z",
+  "temperature": 68.4,
+  "vibration": 3.1,
+  "pressure": 102.7,
+  "device_status": "OK"
+}
+
+
+### Ingest Sensor Reading (Sensor S-2002)
+POST http://localhost:8080/api/v1/sensors/S-2002/readings
+Content-Type: application/json
+
+{
+  "timestamp": "2026-02-05T16:08:30Z",
+  "temperature": 72.1,
+  "vibration": 2.6,
+  "pressure": 101.9,
+  "device_status": "OK"
+}
+
+
+### Ingest Sensor Reading (High Temperature - for anomaly testing later)
+POST http://localhost:8080/api/v1/sensors/S-3003/readings
+Content-Type: application/json
+
+{
+  "timestamp": "2026-02-05T16:10:00Z",
+  "temperature": 101.4,
+  "vibration": 4.2,
+  "pressure": 103.1,
+  "device_status": "WARN"
+}
+
+
+### Validation Error - Missing temperature
+POST http://localhost:8080/api/v1/sensors/S-1001/readings
+Content-Type: application/json
+
+{
+  "timestamp": "2026-02-05T16:07:00Z",
+  "vibration": 3.1,
+  "pressure": 102.7,
+  "device_status": "OK"
+}
+
+
+### Validation Error - Blank device_status
+POST http://localhost:8080/api/v1/sensors/S-1001/readings
+Content-Type: application/json
+
+{
+  "timestamp": "2026-02-05T16:07:00Z",
+  "temperature": 68.4,
+  "vibration": 3.1,
+  "pressure": 102.7,
+  "device_status": ""
+}
