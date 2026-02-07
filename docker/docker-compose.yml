@@ -1,0 +1,69 @@
+version: "3.9"  # Use a modern Compose file format version.
+
+services:
+  # ────────────────────────────────────────────────────────────────
+  # Zookeeper: Coordination service required by Kafka (for this local setup).
+  # ────────────────────────────────────────────────────────────────
+  zookeeper:
+    image: confluentinc/cp-zookeeper:7.6.1
+    container_name: ${COMPOSE_PROJECT_NAME}_zookeeper
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181            # Zookeeper listens for clients here.
+      ZOOKEEPER_TICK_TIME: 2000              # Basic timing for ZK heartbeats (ms).
+    ports:
+      - "2181:2181"                          # Expose to host so CLI tools can reach it if needed.
+    networks:
+      - iot_net                               # Put ZK on a private docker network.
+
+  # ────────────────────────────────────────────────────────────────
+  # Kafka: Event backbone for all inter-service communication.
+  # ────────────────────────────────────────────────────────────────
+  kafka:
+    image: confluentinc/cp-kafka:7.6.1
+    container_name: ${COMPOSE_PROJECT_NAME}_kafka
+    depends_on:
+      - zookeeper                            # Ensure ZK starts before Kafka.
+    environment:
+      KAFKA_BROKER_ID: ${KAFKA_BROKER_ID}    # Unique broker id (1 for local single-broker).
+      KAFKA_ZOOKEEPER_CONNECT: ${KAFKA_ZK_CONNECT}  # ZK address from .env
+      # Listeners: internal only, single PLAINTEXT listener for local dev
+      KAFKA_LISTENERS: ${KAFKA_LISTENERS}
+      KAFKA_ADVERTISED_LISTENERS: ${KAFKA_ADVERTISED_LISTENERS}
+      # Partitions & minimal useful defaults for local development
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_MIN_INSYNC_REPLICAS: 1
+      # Allow topic auto-creation during early dev (can disable later)
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
+    ports:
+      - "9092:9092"                          # Expose Kafka to the host for local tools.
+    networks:
+      - iot_net
+
+  # ────────────────────────────────────────────────────────────────
+  # PostgreSQL: System of record for metrics and alerts.
+  # ────────────────────────────────────────────────────────────────
+  postgres:
+    image: postgres:16
+    container_name: ${COMPOSE_PROJECT_NAME}_postgres
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}            # DB name from .env
+      POSTGRES_USER: ${POSTGRES_USER}        # DB user from .env
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}# DB password from .env
+    ports:
+      - "${POSTGRES_PORT}:5432"              # Map host port -> container 5432
+    volumes:
+      - postgres_data:/var/lib/postgresql/data  # Persist DB files between restarts.
+    networks:
+      - iot_net
+
+# ──────────────────────────────────────────────────────────────────
+# Networks & Volumes
+# ──────────────────────────────────────────────────────────────────
+networks:
+  iot_net:
+    driver: bridge                           # Private bridge network for all containers.
+
+volumes:
+  postgres_data:                             # Named volume to persist Postgres data.
