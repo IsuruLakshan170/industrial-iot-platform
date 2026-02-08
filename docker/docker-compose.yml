@@ -10,8 +10,8 @@ services:
     environment:
       ZOOKEEPER_CLIENT_PORT: 2181            # Zookeeper listens for clients here.
       ZOOKEEPER_TICK_TIME: 2000              # Basic timing for ZK heartbeats (ms).
-    ports:
-      - "2181:2181"                          # Expose to host so CLI tools can reach it if needed.
+    # ports:
+    #   - "2181:2181"                          # Expose to host so CLI tools can reach it if needed.
     networks:
       - iot_net                               # Put ZK on a private docker network.
 
