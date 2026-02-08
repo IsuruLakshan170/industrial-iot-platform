@@ -1,8 +1,6 @@
 
 # 🏭 Industrial IoT Equipment Health Monitoring System
 
-<img width="1312" height="1202" alt="image" src="https://github.com/user-attachments/assets/18835924-d4b8-4763-a98b-d8357df1c21d" />
-
 ## 📘 Executive Summary
 This system provides real-time health monitoring for industrial equipment using IoT sensor ingestion, concurrent stream processing, anomaly detection, and alerting. Built with Java, Python, Kafka, PostgreSQL, and Docker, it is designed for scalability, fault tolerance, and observability.
 
@@ -31,6 +29,9 @@ This system provides real-time health monitoring for industrial equipment using 
 - Detect anomalies using rule thresholds and spike detection.
 
 ## 🧱 Architecture Overview
+
+<img width="1312" height="1202" alt="image" src="https://github.com/user-attachments/assets/18835924-d4b8-4763-a98b-d8357df1c21d" />
+
 Event-driven microservices architecture:
 - **Sensor Ingestion Service (Java)** → Publishes to Kafka topic `sensor-readings`.
 - **Stream Processor (Python)** → Consumes events, emits `processed-metrics` & `anomaly-detected`.
