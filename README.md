@@ -81,7 +81,7 @@ Event-driven microservices architecture:
 
 ## ▶ How to Run
 ```
-docker compose up -d
+docker compose up -d --build
 ```
 1. Register sensor (optional)
 2. Send readings via REST
