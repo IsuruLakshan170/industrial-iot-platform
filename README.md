@@ -1,6 +1,8 @@
 
 # 🏭 Industrial IoT Equipment Health Monitoring System
 
+<img width="1312" height="1202" alt="image" src="https://github.com/user-attachments/assets/18835924-d4b8-4763-a98b-d8357df1c21d" />
+
 ## 📘 Executive Summary
 This system provides real-time health monitoring for industrial equipment using IoT sensor ingestion, concurrent stream processing, anomaly detection, and alerting. Built with Java, Python, Kafka, PostgreSQL, and Docker, it is designed for scalability, fault tolerance, and observability.
 
