@@ -5,10 +5,10 @@ POST http://localhost:8080/api/v1/sensors/S-1001/readings
 Content-Type: application/json
 
 {
-  "timestamp": "2026-02-05T16:07:00Z",
-  "temperature": 68.4,
-  "vibration": 3.1,
-  "pressure": 102.7,
+  "timestamp": "2026-02-12T17:05:00Z",
+  "temperature": 85.0,
+  "vibration": 3.2,
+  "pressure": 102.9,
   "device_status": "OK"
 }
 

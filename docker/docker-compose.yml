@@ -81,6 +81,17 @@ services:
       - iot_net
 
   # ────────────────────────────────────────────────────────────────  
+  stream-processor-service:
+      build:
+        context: ../services/stream-processor-service
+        dockerfile: Dockerfile
+      env_file:
+        - ../services/stream-processor-service/app.env.example
+        - ./.env                            # (optional) shared values
+      depends_on:
+        - kafka
+      networks:
+        - iot_net
 
 # ──────────────────────────────────────────────────────────────────
 # Networks & Volumes
