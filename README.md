@@ -54,6 +54,9 @@ Event-driven microservices architecture:
 - Returns 202 with eventId.
 
 ### ✔ Stream Processor
+
+<img width="1397" height="1014" alt="Stream Processor Service" src="https://github.com/user-attachments/assets/8a83019a-875b-4753-aca5-1bd0b49ba260" />
+
 - Concurrent processing with rules-based anomaly detection.
 
 ### ✔ Metrics Service
